@@ -1,0 +1,11 @@
+{
+  "name": "restaurant-finder",
+  "version": "0.0.1",
+  "repository": "https://github.com/mayoljonathan/restaurant-finder.git",
+  "author": "Jonathan Mayol <mayoljonathan@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "npx concurrently \"pnpm --filter backend-api dev\" \"pnpm --filter frontend-web dev\""
+  }
+}
