@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
+import { SearchModule } from './search/search.module';
 
 @Module({
-  imports: [],
+  imports: [SearchModule],
   controllers: [],
   providers: [],
 })
