@@ -1,15 +1,13 @@
-import {
-  Body,
-  Controller,
-  NotImplementedException,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { SearchDto } from './dto/search.dto';
+import { SearchService } from './search.service';
 
 @Controller()
 export class SearchController {
+  constructor(private readonly searchService: SearchService) {}
+
   @Post('/execute')
-  search(@Body() data: SearchDto) {
-    throw new NotImplementedException();
+  search(@Body() { message }: SearchDto) {
+    return this.searchService.search(message);
   }
 }

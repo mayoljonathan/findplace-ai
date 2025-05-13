@@ -13,4 +13,22 @@ export class OpenAiService {
       apiKey: this.configService.get('OPENAI_API_KEY'),
     });
   }
+
+  async createChatCompletion<T = any>({
+    userPrompt,
+    systemPrompt,
+  }: {
+    userPrompt: string;
+    systemPrompt: string;
+  }) {
+    const response = await this.openai.chat.completions.create({
+      model: this.configService.get('OPENAI_MODEL'),
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt },
+      ],
+    });
+
+    return JSON.parse(response.choices[0].message.content) as T;
+  }
 }
