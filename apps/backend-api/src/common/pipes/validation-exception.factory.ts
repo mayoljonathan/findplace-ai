@@ -10,6 +10,6 @@ export const validationExceptionFactory = (errors: ValidationError[]) => {
   return new BadRequestException({
     statusCode: HttpStatus.BAD_REQUEST,
     message: 'Validation failed',
-    error: result,
+    errors: result,
   });
 };
