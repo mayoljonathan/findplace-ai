@@ -28,7 +28,7 @@ export class HttpLoggerMiddleware implements NestMiddleware {
       const { statusCode } = response;
       this.logger.log(
         `${method} ${url} ${userAgent} ${ip} ${statusCode} - response sent:`,
-        JSON.parse(responseBody),
+        responseBody ? JSON.parse(responseBody) : responseBody,
       );
     });
 
