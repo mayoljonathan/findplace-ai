@@ -1,11 +1,17 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { APP_FILTER } from '@nestjs/core';
+import { ConfigModule } from '@nestjs/config';
 import { SearchModule } from './features/search/search.module';
 import { CatchAllErrorFilter } from './common/filters';
 import { HttpLoggerMiddleware } from './common/middlewares';
 
 @Module({
-  imports: [SearchModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    SearchModule,
+  ],
   controllers: [],
   providers: [
     {
