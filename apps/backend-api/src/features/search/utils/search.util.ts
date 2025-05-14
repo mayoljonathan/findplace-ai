@@ -1,4 +1,4 @@
-import { SearchCommand } from '../search.types';
+import { SearchCommand } from '../types';
 
 export function getInterfaceSchema<T>(example: T): string {
   return JSON.stringify(example, null, 2);
