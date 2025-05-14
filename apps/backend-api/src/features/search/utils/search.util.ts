@@ -10,7 +10,7 @@ export const searchCommandInterfaceExample = `
     parameters: {
       query: string;
       near: string;
-      price?: string;
+      price?: string; // "1" (most affordable) to "4" (most expensive)
       open_now?: boolean;
     };
   }
