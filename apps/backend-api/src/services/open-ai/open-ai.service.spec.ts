@@ -1,6 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigService } from '@nestjs/config';
 import { OpenAiService } from './open-ai.service';
+import { OpenAI } from 'openai';
+
+jest.mock('openai', () => ({
+  OpenAI: jest.fn().mockImplementation(() => ({
+    chat: {
+      completions: {
+        create: jest.fn(),
+      },
+    },
+  })),
+}));
 
 describe('OpenAiService', () => {
   let service: OpenAiService;
@@ -39,8 +50,12 @@ describe('OpenAiService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should initialize OpenAI with correct API key', () => {
-    expect(configService.get).toHaveBeenCalledWith('OPENAI_API_KEY');
+  it('should initialize OpenAI with correct API key and model', () => {
+    expect(OpenAI).toHaveBeenCalledWith({
+      apiKey: 'mock-api-key',
+    });
+    expect(configService.get('OPENAI_API_KEY')).toBe('mock-api-key');
+    expect(configService.get('OPENAI_MODEL')).toBe('mock-model');
     expect(service.openai).toBeDefined();
   });
 });
