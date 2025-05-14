@@ -4,7 +4,7 @@ import {
   searchCommandInterfaceExample,
 } from '../../../features/search/utils/search.util';
 
-export const CONVERT_USER_PROMPT_TO_COMMAND_SYSTEM_PROMPT = `
+export const CONVERT_MESSAGE_TO_SEARCH_COMMAND_SYSTEM_PROMPT = `
 
 You are a helpful assistant that converts user's message to a command.
 

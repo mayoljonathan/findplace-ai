@@ -65,13 +65,13 @@ export interface FoursquarePlace {
   distance: number;
   email: string;
   fax: string;
-  geocodes: {
+  geocodes: Partial<{
     drop_off: Coordinate;
     front_door: Coordinate;
     main: Coordinate;
     road: Coordinate;
     roof: Coordinate;
-  };
+  }>;
   hours: {
     display: string;
     is_local_holiday: boolean;
@@ -80,7 +80,7 @@ export interface FoursquarePlace {
   };
   hours_popular: FoursquarePlaceHour[];
   link: string;
-  location: {
+  location: Partial<{
     address: string;
     address_extended: string;
     admin_region: string;
@@ -95,7 +95,7 @@ export interface FoursquarePlace {
     post_town: string;
     postcode: string;
     region: string;
-  };
+  }>;
   menu: string;
   name: string;
   photos: {
@@ -111,9 +111,9 @@ export interface FoursquarePlace {
   popularity: number;
   price: number;
   rating: number;
-  related_places: {
+  related_places: Partial<{
     parent: string;
-  };
+  }>;
   social_media: {
     facebook_id: string;
     instagram: string;
@@ -135,7 +135,7 @@ export interface FoursquarePlace {
 }
 
 export interface FoursquarePlacesResponse {
-  results: FoursquarePlace[];
+  results: Partial<FoursquarePlace>[];
   context: FoursquarePlacesResposeContext;
 }
 
