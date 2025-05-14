@@ -11,6 +11,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         baseURL: configService.get('FOURSQUARE_API_URL'),
         headers: {
           Authorization: `${configService.get('FOURSQUARE_API_KEY')}`,
+          Accept: 'application/json',
         },
       }),
       inject: [ConfigService],
