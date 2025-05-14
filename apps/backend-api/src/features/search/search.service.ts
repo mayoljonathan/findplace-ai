@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CONVERT_USER_PROMPT_TO_COMMAND_SYSTEM_PROMPT } from 'src/services/open-ai/constants/prompts';
-import { OpenAiService } from 'src/services/open-ai/open-ai.service';
+import { CONVERT_USER_PROMPT_TO_COMMAND_SYSTEM_PROMPT } from '../../services/open-ai/constants/prompts';
+import { OpenAiService } from '../../services/open-ai/open-ai.service';
 import { SearchCommand } from './search.types';
 
 @Injectable()

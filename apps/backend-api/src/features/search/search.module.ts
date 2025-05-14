@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { SearchController } from './search.controller';
 import { SearchService } from './search.service';
-import { OpenAiModule } from 'src/services/open-ai/open-ai.module';
+import { OpenAiModule } from '../../services/open-ai/open-ai.module';
 
 @Module({
   imports: [OpenAiModule],

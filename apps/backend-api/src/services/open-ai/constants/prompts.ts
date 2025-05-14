@@ -1,8 +1,8 @@
-import { SEARCH_ACTIONS } from 'src/features/search/constants/search-action';
+import { SEARCH_ACTIONS } from '../../../features/search/constants/search-action';
 import {
   restaurantSearchCommandExample,
   searchCommandInterfaceExample,
-} from 'src/features/search/utils/search.util';
+} from '../../../features/search/utils/search.util';
 
 export const CONVERT_USER_PROMPT_TO_COMMAND_SYSTEM_PROMPT = `
 

@@ -6,6 +6,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "npx concurrently \"pnpm --filter backend-api dev\" \"pnpm --filter frontend-web dev\""
+    "dev": "npx concurrently \"pnpm --filter backend-api dev\" \"pnpm --filter frontend-web dev\"",
+    "test": "npx concurrently \"pnpm --filter backend-api test\""
   }
 }
