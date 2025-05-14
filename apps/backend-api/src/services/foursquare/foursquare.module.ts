@@ -10,8 +10,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory: (configService: ConfigService<EnvironmentVariable>) => ({
         baseURL: configService.get('FOURSQUARE_API_URL'),
         headers: {
-          Authorization: `Bearer ${configService.get('FOURSQUARE_API_KEY')}`,
-          'Content-Type': 'application/json',
+          Authorization: `${configService.get('FOURSQUARE_API_KEY')}`,
         },
       }),
       inject: [ConfigService],
