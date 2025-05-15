@@ -10,6 +10,18 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ss3.4sqi.net", // For categories
+      },
+      {
+        protocol: "https",
+        hostname: "fastly.4sqi.net", // For photos
+      },
+    ],
+  },
 };
 
 export default nextConfig;
