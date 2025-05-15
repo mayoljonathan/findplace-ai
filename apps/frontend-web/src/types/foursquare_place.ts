@@ -3,7 +3,7 @@ export interface Coordinate {
   longitude: number;
 }
 
-export interface PlaceTip {
+export interface FoursquarePlaceTip {
   id: string;
   created_at: Date;
   text: string;
@@ -14,13 +14,13 @@ export interface PlaceTip {
   disagree_count: number;
 }
 
-export interface PlaceHour {
+export interface FoursquarePlaceHour {
   close: string;
   day: number;
   open: string;
 }
 
-export interface Place {
+export interface FoursquarePlace {
   fsq_id: string;
   categories: {
     id: number;
@@ -53,9 +53,9 @@ export interface Place {
     display: string;
     is_local_holiday: boolean;
     open_now: boolean;
-    regular: PlaceHour[];
+    regular: FoursquarePlaceHour[];
   };
-  hours_popular: PlaceHour[];
+  hours_popular: FoursquarePlaceHour[];
   link: string;
   location: Partial<{
     address: string;
@@ -83,7 +83,7 @@ export interface Place {
     width: number;
     height: number;
     classifications: string[];
-    tip: Omit<PlaceTip, "photo">;
+    tip: Omit<FoursquarePlaceTip, "photo">;
   }[];
   popularity: number;
   price: number;
@@ -105,7 +105,7 @@ export interface Place {
   tastes: string[];
   tel: string;
   timezone: string;
-  tips: PlaceTip[];
+  tips: FoursquarePlaceTip[];
   venue_reality_bucket: string;
   verified: boolean;
   website: string;
