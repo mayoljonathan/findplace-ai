@@ -1,54 +1,80 @@
 "use client";
 
-import { useState } from "react";
 import { Header, PlaceList } from "../components/common";
 import { Button, Container, Input } from "../components/base";
-import axios from "axios";
-import { ApiError } from "../types/common";
+import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Place, ApiError } from "../types";
+import { HttpService } from "../service/http";
+
+const formSchema = z.object({
+  message: z.string(),
+});
+
+type FormInput = z.infer<typeof formSchema>;
+
+const http = new HttpService();
 
 export default function Home() {
-  const [message, setMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const form = useForm<FormInput>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      message: "",
+    },
+  });
 
-  const handleSearch = async () => {
-    try {
-      setIsLoading(true);
-      setErrorMessage("");
-
-      const response = await axios.post("/api/execute", {
-        message,
-      });
-
-      console.log("response", response);
-    } catch (e) {
-      if (axios.isAxiosError(e)) {
-        const { message } = e.response?.data as ApiError;
-        setErrorMessage(message);
+  const {
+    mutate: executeSearch,
+    data: places,
+    isPending: isLoading,
+    isError,
+    error,
+    reset: resetSearch,
+  } = useMutation<Place[], ApiError, FormInput>({
+    mutationFn: (data) => http.post("/api/execute", data),
+    onError({ errors }) {
+      if (errors?.length) {
+        errors.forEach((error) => {
+          form.setError(error.property as keyof FormInput, {
+            message: error.messages?.[0],
+          });
+        });
       }
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    },
+  });
+
+  const handleSubmit = async (data: FormInput) => executeSearch(data);
+
+  const hasSearchError = form.formState.errors.message || isError;
 
   return (
     <Container className="h-full flex flex-col">
       <Header />
       <div className="flex-1">
-        <div>
+        <form onSubmit={form.handleSubmit(handleSubmit)}>
           <div>What are you looking for?</div>
           <div className="flex gap-2">
             <Input
-              value={message}
+              {...form.register("message", {
+                onChange: () => resetSearch(),
+              })}
               placeholder="Affordable ramen restaurant near me"
-              onChange={(e) => setMessage(e.target.value)}
+              readOnly={isLoading}
             />
-            <Button onClick={handleSearch} disabled={isLoading}>
+            <Button type="submit" disabled={isLoading}>
               {isLoading ? "Searching..." : "Search"}
             </Button>
           </div>
-          {errorMessage && <div className="text-red-500">{errorMessage}</div>}
-        </div>
+          {hasSearchError && (
+            <span className="text-red-500 text-sm">
+              {form.formState.errors.message
+                ? form.formState.errors.message?.message
+                : error?.message}
+            </span>
+          )}
+        </form>
 
         <div className="mt-4">
           <PlaceList />
