@@ -7,7 +7,7 @@ export class HttpService extends Axios {
     const instance = axios.create(config);
 
     instance.interceptors.response.use(
-      (response) => response,
+      (response) => response.data,
       (error: AxiosError) => {
         if (
           typeof error.response?.data === "object" &&
