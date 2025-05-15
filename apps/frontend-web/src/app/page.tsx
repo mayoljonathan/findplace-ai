@@ -8,6 +8,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Place, ApiError } from "../types";
 import { HttpService } from "../service/http";
+import { setApiErrorToForm } from "../lib/form";
 
 const formSchema = z.object({
   message: z.string(),
@@ -34,14 +35,11 @@ export default function Home() {
     reset: resetSearch,
   } = useMutation<Place[], ApiError, FormInput>({
     mutationFn: (data) => http.post("/api/execute", data),
-    onError({ errors }) {
-      if (errors?.length) {
-        errors.forEach((error) => {
-          form.setError(error.property as keyof FormInput, {
-            message: error.messages?.[0],
-          });
-        });
-      }
+    onError: ({ errors }) => {
+      setApiErrorToForm({
+        errors,
+        setError: form.setError,
+      });
     },
   });
 
