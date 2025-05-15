@@ -1,5 +1,5 @@
 export interface ApiError {
-  statusCode: boolean;
+  statusCode: number;
   error: string;
   message: string;
   errors?: {
