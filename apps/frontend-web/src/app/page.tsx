@@ -3,22 +3,29 @@
 import { useState } from "react";
 import { Header, PlaceList } from "../components/common";
 import { Button, Container, Input } from "../components/base";
-import { API_URL } from "../config/constants";
 
 export default function Home() {
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSearch = async () => {
-    const response = await fetch(`${API_URL}/api/execute`, {
-      method: "POST",
-      body: JSON.stringify({ message }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    try {
+      setIsLoading(true);
+      const response = await fetch(`/api/execute`, {
+        method: "POST",
+        body: JSON.stringify({ message }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    const data = await response.json();
-    console.log(data);
+      const data = await response.json();
+      console.log(data);
+    } catch (e) {
+      console.log("error", e);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -33,7 +40,9 @@ export default function Home() {
               placeholder="Affordable ramen restaurant near me"
               onChange={(e) => setMessage(e.target.value)}
             />
-            <Button onClick={handleSearch}>Search</Button>
+            <Button onClick={handleSearch} disabled={isLoading}>
+              {isLoading ? "Searching..." : "Search"}
+            </Button>
           </div>
         </div>
 
