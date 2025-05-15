@@ -3,26 +3,29 @@
 import { useState } from "react";
 import { Header, PlaceList } from "../components/common";
 import { Button, Container, Input } from "../components/base";
+import axios from "axios";
+import { ApiError } from "../types/common";
 
 export default function Home() {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSearch = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/execute`, {
-        method: "POST",
-        body: JSON.stringify({ message }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+      setErrorMessage("");
+
+      const response = await axios.post("/api/execute", {
+        message,
       });
 
-      const data = await response.json();
-      console.log(data);
+      console.log("response", response);
     } catch (e) {
-      console.log("error", e);
+      if (axios.isAxiosError(e)) {
+        const { message } = e.response?.data as ApiError;
+        setErrorMessage(message);
+      }
     } finally {
       setIsLoading(false);
     }
@@ -44,6 +47,7 @@ export default function Home() {
               {isLoading ? "Searching..." : "Search"}
             </Button>
           </div>
+          {errorMessage && <div className="text-red-500">{errorMessage}</div>}
         </div>
 
         <div className="mt-4">
