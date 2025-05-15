@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Place, ApiError } from "../types";
+import { FoursquarePlace, ApiError } from "../types";
 import { HttpService } from "../service/http";
 import { setApiErrorToForm } from "../lib/form";
 
@@ -28,12 +28,12 @@ export default function Home() {
 
   const {
     mutate: executeSearch,
-    data: places,
+    data: foursquarePlaces,
     isPending: isLoading,
     isError,
     error,
     reset: resetSearch,
-  } = useMutation<Place[], ApiError, FormInput>({
+  } = useMutation<FoursquarePlace[], ApiError, FormInput>({
     mutationFn: (data) => http.post("/api/execute", data),
     onError: ({ errors }) => {
       setApiErrorToForm({
@@ -48,11 +48,11 @@ export default function Home() {
   const hasSearchError = form.formState.errors.message || isError;
 
   return (
-    <Container className="h-full flex flex-col">
+    <Container className="h-full flex flex-col pt-0 gap-4">
       <Header />
       <div className="flex-1">
         <form onSubmit={form.handleSubmit(handleSubmit)}>
-          <div>What are you looking for?</div>
+          <div className="text-lg font-bold">What are you looking for?</div>
           <div className="flex gap-2">
             <Input
               {...form.register("message", {
@@ -74,8 +74,8 @@ export default function Home() {
           )}
         </form>
 
-        <div className="mt-4">
-          <PlaceList />
+        <div className="my-4">
+          <PlaceList items={foursquarePlaces} />
         </div>
       </div>
     </Container>
