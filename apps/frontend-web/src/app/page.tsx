@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { ComponentPropsWithoutRef, useMemo, useState } from "react";
 import { PhotoProvider, PhotoSlider } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import { LucideSearch, LucideSparkles } from "lucide-react";
@@ -10,7 +10,12 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { cn } from "../lib/utils";
 
-import { Header, Hero, PlaceList } from "../components/common";
+import {
+  Header,
+  Hero,
+  PlaceList,
+  PlaceListToolbar,
+} from "../components/common";
 import { Button, Container, EmptyState, Input } from "../components/base";
 import { FoursquarePlace, ApiError } from "../types";
 import { HttpService } from "../service/http";
@@ -35,6 +40,10 @@ export default function Home() {
     item?: FoursquarePlace;
     selectedPhotoIndex?: number;
   }>();
+  const [sortBy, setSortBy] =
+    useState<ComponentPropsWithoutRef<typeof PlaceListToolbar>["sortBy"]>(
+      "relevance"
+    );
 
   const form = useForm<FormInput>({
     resolver: zodResolver(formSchema),
@@ -52,7 +61,10 @@ export default function Home() {
     status,
   } = useMutation<FoursquarePlace[], ApiError, FormInput>({
     mutationFn: (data) => http.post("/api/execute", data),
-    onSuccess: setPlaces,
+    onSuccess: (data) => {
+      setPlaces(data);
+      setSortBy("relevance");
+    },
     onError: ({ errors }) => {
       setApiErrorToForm({
         errors,
@@ -71,6 +83,18 @@ export default function Home() {
       src: `${photo.prefix}original${photo.suffix}`,
       key: photo.id,
     }));
+
+  const sortedPlaces = useMemo(() => {
+    if (sortBy === "relevance") return places;
+
+    return places?.toSorted((a, b) => {
+      if (sortBy === "price-asc") return a.price - b.price;
+      else if (sortBy === "price-desc") return b.price - a.price;
+      else if (sortBy === "rating-asc") return a.rating - b.rating;
+      else if (sortBy === "rating-desc") return b.rating - a.rating;
+      return 0;
+    });
+  }, [places, sortBy]);
 
   return (
     <PhotoProvider>
@@ -132,10 +156,19 @@ export default function Home() {
           </form>
 
           {places && (
-            <div className="my-4">
+            <div className="my-4 flex flex-col gap-4">
+              {(!!places.length || isLoading) && (
+                <PlaceListToolbar
+                  itemCount={places.length}
+                  isLoading={isLoading}
+                  onSortByChange={setSortBy}
+                  sortBy={sortBy}
+                />
+              )}
+
               {isLoading || places.length ? (
                 <PlaceList
-                  items={places}
+                  items={sortedPlaces}
                   isLoading={isLoading}
                   onThumbnailClick={(item) =>
                     setSelectedPhotoPreviewPlace({
