@@ -1,10 +1,11 @@
 import React from "react";
 import Image from "next/image";
-import { LucideStar } from "lucide-react";
+import { LucideGlobe, LucidePhone, LucideStar } from "lucide-react";
 import { FoursquarePlace } from "../../../types";
-import { Badge } from "../../base";
+import { Badge, IconButton } from "../../base";
 import { PriceLevel } from "../PriceLevel";
 import { useMediaQuery } from "usehooks-ts";
+import Link from "next/link";
 
 const ACTUAL_MAX_RATING = 10;
 const DESIRED_MAX_RATING = 5;
@@ -15,10 +16,19 @@ interface PlaceListItemProps {
 }
 
 export const PlaceListItem: React.FC<PlaceListItemProps> = ({ item }) => {
-  const { name, categories, location, photos, rating, price, hours } = item;
+  const {
+    name,
+    categories,
+    location,
+    photos,
+    rating,
+    price,
+    hours,
+    website,
+    tel,
+  } = item;
 
   const isSmallScreen = useMediaQuery("(max-width: 640px)");
-
   const thumbnailImageSize = !isSmallScreen ? "300x300" : "600x338";
 
   const thumbnail = photos?.[0]
@@ -44,8 +54,8 @@ export const PlaceListItem: React.FC<PlaceListItemProps> = ({ item }) => {
         )}
       </div>
 
-      <div className="flex flex-col">
-        <p className="text-lg font-bold leading-none">{name}</p>
+      <div className="flex-1 flex flex-col">
+        <p className="mt-0.5 text-lg font-bold leading-tight">{name}</p>
         {(!!rating || !!price) && (
           <div className="mt-1 flex items-center gap-4">
             {!!rating && (
@@ -88,6 +98,23 @@ export const PlaceListItem: React.FC<PlaceListItemProps> = ({ item }) => {
             <p className="text-xs text-muted-foreground">{hours.display}</p>
           )}
         </div>
+      </div>
+
+      <div className="h-fit flex gap-2">
+        {website && (
+          <Link href={website} target="_blank">
+            <IconButton tooltip="View website">
+              <LucideGlobe />
+            </IconButton>
+          </Link>
+        )}
+        {tel && (
+          <Link href={`tel:${tel}`} target="_blank">
+            <IconButton tooltip="Contact">
+              <LucidePhone />
+            </IconButton>
+          </Link>
+        )}
       </div>
     </div>
   );
