@@ -51,4 +51,5 @@ export const SEARCH_FOURSQUARE_PLACE_FIELDS: (keyof FoursquarePlace)[] = [
   'hours',
   'website',
   'tel',
+  'geocodes',
 ];
