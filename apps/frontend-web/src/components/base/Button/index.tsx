@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
+import { Slot, Slottable } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 import { Loader } from "../Loader";
@@ -21,6 +21,12 @@ const buttonVariants = cva(
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
       },
+      effect: {
+        shine:
+          "before:animate-shine relative overflow-hidden before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.5)_50%,transparent_75%,transparent_100%)] before:bg-[length:250%_250%,100%_100%] before:bg-no-repeat background-position_0s_ease",
+        shineHover:
+          "relative overflow-hidden before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.5)_50%,transparent_75%,transparent_100%)] before:bg-[length:250%_250%,100%_100%] before:bg-[position:200%_0,0_0] before:bg-no-repeat before:transition-[background-position_0s_ease] hover:before:bg-[position:-100%_0,0_0] before:duration-1000",
+      },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
@@ -35,37 +41,51 @@ const buttonVariants = cva(
   }
 );
 
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  children,
-  isLoading,
-  iconLeft,
-  ...restProps
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean;
-    isLoading?: boolean;
-    iconLeft?: React.ReactNode;
-  }) {
-  const Comp = asChild ? Slot : "button";
-
-  return (
-    <Comp
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...restProps}
-    >
-      {!isLoading ? (
-        <Slot className="size-4">{iconLeft}</Slot>
-      ) : (
-        <Loader className="text-primary-foreground" />
-      )}
-      {children}
-    </Comp>
-  );
+interface ButtonProps
+  extends React.ComponentProps<"button">,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean;
+  isLoading?: boolean;
+  loadingIcon?: React.ReactNode;
+  iconLeft?: React.ReactNode;
 }
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (props, ref) => {
+    const {
+      className,
+      variant,
+      size,
+      effect,
+      asChild = false,
+      children,
+      isLoading,
+      iconLeft,
+      disabled,
+      loadingIcon,
+      ...restProps
+    } = props;
+    const Comp = asChild ? Slot : "button";
+
+    return (
+      <Comp
+        data-slot="button"
+        className={cn(buttonVariants({ variant, effect, size, className }))}
+        {...restProps}
+        ref={ref}
+        disabled={isLoading || disabled}
+      >
+        {!isLoading ? (
+          <Slot className="size-4">{iconLeft}</Slot>
+        ) : loadingIcon ? (
+          loadingIcon
+        ) : (
+          <Loader className="text-primary-foreground" />
+        )}
+        <Slottable>{children}</Slottable>
+      </Comp>
+    );
+  }
+);
 
 export { Button, buttonVariants };
