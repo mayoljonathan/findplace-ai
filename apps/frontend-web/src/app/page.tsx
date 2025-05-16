@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Header, PlaceList } from "../components/common";
+import { Header, Hero, PlaceList } from "../components/common";
 import { Button, Container, EmptyState, Input } from "../components/base";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -43,6 +43,7 @@ export default function Home() {
     isError,
     error,
     reset: resetPlaces,
+    status,
   } = useMutation<FoursquarePlace[], ApiError, FormInput>({
     mutationFn: (data) => http.post("/api/execute", data),
     onSuccess: setPlaces,
@@ -51,6 +52,7 @@ export default function Home() {
         errors,
         setError: form.setError,
       });
+      setPlaces([]);
     },
   });
 
@@ -61,9 +63,10 @@ export default function Home() {
   return (
     <Container className="h-full flex flex-col pt-0 gap-4">
       <Header />
+      <Hero />
+
       <div className="flex-1">
         <form onSubmit={form.handleSubmit(handleSubmit)}>
-          <div className="text-xl font-bold">What are you looking for?</div>
           <div className="mt-2 flex gap-2 flex-col sm:flex-row">
             <div className="flex-1">
               <Input
@@ -75,7 +78,7 @@ export default function Home() {
                 disabled={isLoading}
               />
               {hasSearchError && (
-                <p className="text-red-500 text-xs mt-1.5">
+                <p className="text-red-500 text-sm mt-1.5">
                   {form.formState.errors.message
                     ? form.formState.errors.message?.message
                     : error?.message}
@@ -97,14 +100,18 @@ export default function Home() {
 
         {places && (
           <div className="my-4">
-            {places.length ? (
+            {isLoading || places.length ? (
               <PlaceList items={places} isLoading={isLoading} />
             ) : (
-              <EmptyState
-                image={NoResults}
-                title="No results found"
-                description="Please try again with a different search query"
-              />
+              <>
+                {status === "success" && !places.length && (
+                  <EmptyState
+                    image={NoResults}
+                    title="No results found"
+                    description="Please try again with a different search query"
+                  />
+                )}
+              </>
             )}
           </div>
         )}

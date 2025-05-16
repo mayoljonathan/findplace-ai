@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(`antialiased h-svh`, funnelSans.className)}>
+      <body className={cn(`antialiased`, funnelSans.className)}>
         <AppProvider>{children}</AppProvider>
       </body>
     </html>
