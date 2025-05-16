@@ -31,3 +31,17 @@ export const restaurantSearchCommandExample = {
     },
   }),
 };
+
+export const sportsAndRecreationSearchCommandExample = {
+  message: 'Tennis court in Cebu City',
+  output: getInterfaceSchema<SearchCommand>({
+    action: 'sports_and_recreation_search',
+    parameters: {
+      query: 'Tennis court',
+      near: 'Cebu City',
+      price: null,
+      open_now: null,
+      open_at: null,
+    },
+  }),
+};
