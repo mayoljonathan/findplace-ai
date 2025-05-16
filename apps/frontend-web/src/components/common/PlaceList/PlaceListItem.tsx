@@ -45,10 +45,7 @@ export const PlaceListItem: React.FC<PlaceListItemProps> = ({ item }) => {
       </div>
 
       <div className="flex flex-col">
-        <p className="text-lg font-bold">{name}</p>
-        <p className="text-sm text-muted-foreground">
-          {location.formatted_address}
-        </p>
+        <p className="text-lg font-bold leading-none">{name}</p>
         {(!!rating || !!price) && (
           <div className="mt-1 flex items-center gap-4">
             {!!rating && (
@@ -81,13 +78,16 @@ export const PlaceListItem: React.FC<PlaceListItemProps> = ({ item }) => {
           ))}
         </div>
 
-        {hours.display && (
-          <div className="mt-1">
-            <span className="text-xs text-muted-foreground">
-              {hours.display}
-            </span>
-          </div>
-        )}
+        <div className="mt-2.5 flex flex-col gap-1">
+          {location?.formatted_address && (
+            <p className="text-sm text-muted-foreground">
+              {location.formatted_address}
+            </p>
+          )}
+          {hours?.display && (
+            <p className="text-xs text-muted-foreground">{hours.display}</p>
+          )}
+        </div>
       </div>
     </div>
   );
