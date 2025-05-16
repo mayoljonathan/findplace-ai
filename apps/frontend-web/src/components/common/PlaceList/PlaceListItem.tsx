@@ -49,18 +49,20 @@ export const PlaceListItem: React.FC<PlaceListItemProps> = ({ item }) => {
         <p className="text-sm text-muted-foreground">
           {location.formatted_address}
         </p>
-        <div className="mt-1 flex items-center gap-4">
-          {rating !== undefined && (
-            <div className="flex items-center gap-1">
-              <LucideStar
-                className="text-yellow-400 fill-yellow-400"
-                size={16}
-              />
-              <span className="text-sm">{scaledRating}</span>
-            </div>
-          )}
-          <PriceLevel value={price} />
-        </div>
+        {(!!rating || !!price) && (
+          <div className="mt-1 flex items-center gap-4">
+            {!!rating && (
+              <div className="flex items-center gap-1">
+                <LucideStar
+                  className="text-yellow-400 fill-yellow-400"
+                  size={16}
+                />
+                <span className="text-sm">{scaledRating}</span>
+              </div>
+            )}
+            {!!price && <PriceLevel value={price} />}
+          </div>
+        )}
         <div className="mt-1 flex flex-wrap gap-1">
           {categories.map((category) => (
             <Badge
