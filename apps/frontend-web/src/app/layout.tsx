@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Funnel_Sans } from "next/font/google";
 import "./globals.css";
+import { cn } from "../lib/utils";
+import { AppProvider } from "../components/providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const funnelSans = Funnel_Sans({
+  variable: "--font-funnel-sans",
   subsets: ["latin"],
 });
 
@@ -25,9 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={cn(`antialiased h-max min-h-svh`, funnelSans.className)}
+        suppressHydrationWarning
       >
-        {children}
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   );
