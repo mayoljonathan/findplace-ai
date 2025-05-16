@@ -16,7 +16,9 @@ export const Hero: React.FC<HeroProps> = (props) => {
         className
       )}
     >
-      <h1 className="text-2xl sm:text-4xl text-center">{APP_HERO_TAGLINE}</h1>
+      <h1 className="text-2xl sm:text-4xl font-light text-center font-mono">
+        {APP_HERO_TAGLINE}
+      </h1>
     </div>
   );
 };

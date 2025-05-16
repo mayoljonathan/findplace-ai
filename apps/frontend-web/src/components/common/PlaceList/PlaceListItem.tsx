@@ -6,6 +6,7 @@ import { Badge, IconButton, Skeleton } from "../../base";
 import { PriceLevel } from "../PriceLevel";
 import { useMediaQuery } from "usehooks-ts";
 import Link from "next/link";
+import { cn } from "../../../lib/utils";
 
 const ACTUAL_MAX_RATING = 10;
 const DESIRED_MAX_RATING = 5;
@@ -14,11 +15,13 @@ const RATING_SCALE_FACTOR = DESIRED_MAX_RATING / ACTUAL_MAX_RATING;
 interface PlaceListItemProps {
   item?: FoursquarePlace;
   isLoading?: boolean;
+  onThumbnailClick?: (item: FoursquarePlace) => void;
 }
 
 export const PlaceListItem: React.FC<PlaceListItemProps> = ({
   item,
   isLoading,
+  onThumbnailClick,
 }) => {
   const {
     name,
@@ -52,11 +55,16 @@ export const PlaceListItem: React.FC<PlaceListItemProps> = ({
             alt={name!}
             src={thumbnail}
             fill
-            className="rounded-md object-cover"
+            sizes="300px"
+            className={cn("rounded-md object-cover", {
+              "cursor-pointer transition-all hover:opacity-75":
+                !!onThumbnailClick,
+            })}
+            onClick={() => onThumbnailClick?.(item!)}
           />
         )}
         {!isLoading && !hours?.open_now && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white pointer-events-none">
             <span className="text-sm font-bold">Closed</span>
           </div>
         )}
