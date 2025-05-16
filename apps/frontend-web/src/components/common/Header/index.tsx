@@ -7,8 +7,10 @@ export const Header: React.FC<HeaderProps> = (props) => {
   const {} = props;
 
   return (
-    <div className="min-h-14 flex items-center justify-center">
-      <span className="text-center text-2xl font-bold">{APP_NAME}</span>
+    <div className="min-h-14 flex items-center justify-center flex-col">
+      <span className="text-center text-2xl font-bold text-primary/75">
+        {APP_NAME}
+      </span>
     </div>
   );
 };
