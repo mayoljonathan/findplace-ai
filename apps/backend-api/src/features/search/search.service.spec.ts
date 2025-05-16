@@ -6,7 +6,10 @@ import { SearchCommand } from './types';
 import { CONVERT_MESSAGE_TO_SEARCH_COMMAND_SYSTEM_PROMPT } from '../../services/open-ai/constants/prompts';
 import { FoursquareService } from '../../services/foursquare/foursquare.service';
 import { FoursquarePlacesResponse } from '../../services/foursquare/types';
-import { SEARCH_ACTION_TO_FOURSQUARE_CATEGORY_ID } from './constants/search';
+import {
+  SEARCH_ACTION_TO_FOURSQUARE_CATEGORY_ID,
+  SEARCH_FOURSQUARE_PLACE_FIELDS,
+} from './constants/search';
 
 describe('SearchService', () => {
   let service: SearchService;
@@ -154,6 +157,7 @@ describe('SearchService', () => {
         near: searchCommand.parameters.near,
         min_price: parseInt(searchCommand.parameters.price),
         open_now: searchCommand.parameters.open_now,
+        fields: SEARCH_FOURSQUARE_PLACE_FIELDS.join(','),
       });
       expect(result).toEqual(mockFoursquareResponse.results);
     });
