@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FoursquarePlace, ApiError } from "../types";
 import { HttpService } from "../service/http";
 import { setApiErrorToForm } from "../lib/form";
-import { LucideSparkles } from "lucide-react";
+import { LucideSearch, LucideSparkles } from "lucide-react";
 
 const formSchema = z.object({
   message: z.string(),
@@ -60,17 +60,18 @@ export default function Home() {
       <div className="flex-1">
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <div className="text-lg font-bold">What are you looking for?</div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-col sm:flex-row">
             <Input
               {...form.register("message", {
                 onChange: () => resetSearch(),
               })}
+              iconLeft={<LucideSearch />}
               placeholder={SEARCH_MESSAGE_EXAMPLES[0]}
-              readOnly={isLoading}
+              disabled={isLoading}
             />
             <Button
               type="submit"
-              className="w-36"
+              className="w-full sm:w-36"
               isLoading={isLoading}
               iconLeft={<LucideSparkles />}
               loadingIcon={<LucideSparkles className="animate-pulse" />}
