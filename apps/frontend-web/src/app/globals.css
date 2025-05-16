@@ -134,3 +134,8 @@
     background-position: -200% 0;
   }
 }
+
+/* Override */
+input:-webkit-autofill { 
+  -webkit-background-clip: text;
+}
