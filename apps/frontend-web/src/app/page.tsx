@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FoursquarePlace, ApiError } from "../types";
 import { HttpService } from "../service/http";
 import { setApiErrorToForm } from "../lib/form";
+import { LucideSparkles } from "lucide-react";
 
 const formSchema = z.object({
   message: z.string(),
@@ -17,6 +18,12 @@ const formSchema = z.object({
 type FormInput = z.infer<typeof formSchema>;
 
 const http = new HttpService();
+
+// TODO: Cycle through these examples
+const SEARCH_MESSAGE_EXAMPLES = [
+  "I'm craving some good pizza. Can you find a budget-friendly pizza spot in IT Park Cebu that's open right now",
+  "Find me a Tennis court in Cebu City",
+];
 
 export default function Home() {
   const form = useForm<FormInput>({
@@ -58,10 +65,17 @@ export default function Home() {
               {...form.register("message", {
                 onChange: () => resetSearch(),
               })}
-              placeholder="Affordable ramen restaurant near me"
+              placeholder={SEARCH_MESSAGE_EXAMPLES[0]}
               readOnly={isLoading}
             />
-            <Button type="submit" disabled={isLoading}>
+            <Button
+              type="submit"
+              className="w-36"
+              isLoading={isLoading}
+              iconLeft={<LucideSparkles />}
+              loadingIcon={<LucideSparkles className="animate-pulse" />}
+              effect="shine"
+            >
               {isLoading ? "Searching..." : "Search"}
             </Button>
           </div>
