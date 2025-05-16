@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { Header, PlaceList } from "../components/common";
-import { Button, Container, Input } from "../components/base";
+import { Button, Container, EmptyState, Input } from "../components/base";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -10,7 +11,7 @@ import { FoursquarePlace, ApiError } from "../types";
 import { HttpService } from "../service/http";
 import { setApiErrorToForm } from "../lib/form";
 import { LucideSearch, LucideSparkles } from "lucide-react";
-import { useState } from "react";
+import NoResults from "../../public/svg/no_results.svg";
 
 const formSchema = z.object({
   message: z.string(),
@@ -27,7 +28,7 @@ const SEARCH_MESSAGE_EXAMPLES = [
 ];
 
 export default function Home() {
-  const [places, setPlaces] = useState<FoursquarePlace[]>([]);
+  const [places, setPlaces] = useState<FoursquarePlace[]>();
 
   const form = useForm<FormInput>({
     resolver: zodResolver(formSchema),
@@ -94,9 +95,19 @@ export default function Home() {
           </div>
         </form>
 
-        <div className="my-4">
-          <PlaceList items={places} isLoading={isLoading} />
-        </div>
+        {places && (
+          <div className="my-4">
+            {places.length ? (
+              <PlaceList items={places} isLoading={isLoading} />
+            ) : (
+              <EmptyState
+                image={NoResults}
+                title="No results found"
+                description="Please try again with a different search query"
+              />
+            )}
+          </div>
+        )}
       </div>
     </Container>
   );
