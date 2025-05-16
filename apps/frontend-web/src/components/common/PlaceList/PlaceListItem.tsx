@@ -66,7 +66,7 @@ export const PlaceListItem: React.FC<PlaceListItemProps> = ({
         {isLoading ? (
           <Skeleton className="mt-0.5 w-3/4 sm:w-80 h-8" />
         ) : (
-          <p className="mt-0.5 text-lg font-bold leading-tight">{name}</p>
+          <p className="mt-0.5 text-lg font-semibold leading-tight">{name}</p>
         )}
 
         {(!!rating || !!price || isLoading) && (
