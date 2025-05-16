@@ -94,7 +94,7 @@ export default function Home() {
         }
       />
 
-      <Container className="h-full flex flex-col pt-0 gap-4">
+      <Container className="h-full flex flex-col gap-4">
         <Header />
         <Hero />
 
@@ -106,6 +106,7 @@ export default function Home() {
                   {...form.register("message", {
                     onChange: () => resetPlaces(),
                   })}
+                  className="h-10"
                   iconLeft={<LucideSearch />}
                   placeholder={SEARCH_MESSAGE_EXAMPLES[0]}
                   disabled={isLoading}
@@ -120,7 +121,7 @@ export default function Home() {
               </div>
               <Button
                 type="submit"
-                className="w-full sm:w-36"
+                className="w-full sm:w-36 h-10"
                 isLoading={isLoading}
                 iconLeft={<LucideSparkles />}
                 loadingIcon={<LucideSparkles className="animate-pulse" />}

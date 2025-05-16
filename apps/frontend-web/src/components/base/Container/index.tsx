@@ -3,7 +3,7 @@ import { VariantProps, cva } from "class-variance-authority";
 import { cn } from "../../../lib/utils";
 
 const containerVariants = cva(
-  "container transition-all h-auto min-h-full m-auto p-4 sm:py-4",
+  "container transition-all h-auto min-h-full m-auto p-4",
   {
     variants: {
       maxWidth: {

@@ -25,7 +25,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       <input
         data-slot="input"
         className={cn(
-          "h-full -my-1 text-sm file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 flex w-full min-w-0 bg-transparent px-3 py-1 file:inline-flex file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 outline-none",
+          "h-full -my-0.25 text-base file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 flex w-full min-w-0 bg-transparent px-3 py-1 file:inline-flex file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 outline-none",
           className
         )}
         {...restProps}
