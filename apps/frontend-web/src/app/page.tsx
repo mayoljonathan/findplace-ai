@@ -10,6 +10,7 @@ import { FoursquarePlace, ApiError } from "../types";
 import { HttpService } from "../service/http";
 import { setApiErrorToForm } from "../lib/form";
 import { LucideSearch, LucideSparkles } from "lucide-react";
+import { useState } from "react";
 
 const formSchema = z.object({
   message: z.string(),
@@ -26,6 +27,8 @@ const SEARCH_MESSAGE_EXAMPLES = [
 ];
 
 export default function Home() {
+  const [places, setPlaces] = useState<FoursquarePlace[]>([]);
+
   const form = useForm<FormInput>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -35,13 +38,13 @@ export default function Home() {
 
   const {
     mutate: executeSearch,
-    data: foursquarePlaces,
     isPending: isLoading,
     isError,
     error,
-    reset: resetSearch,
+    reset: resetPlaces,
   } = useMutation<FoursquarePlace[], ApiError, FormInput>({
     mutationFn: (data) => http.post("/api/execute", data),
+    onSuccess: setPlaces,
     onError: ({ errors }) => {
       setApiErrorToForm({
         errors,
@@ -59,16 +62,25 @@ export default function Home() {
       <Header />
       <div className="flex-1">
         <form onSubmit={form.handleSubmit(handleSubmit)}>
-          <div className="text-lg font-bold">What are you looking for?</div>
-          <div className="flex gap-2 flex-col sm:flex-row">
-            <Input
-              {...form.register("message", {
-                onChange: () => resetSearch(),
-              })}
-              iconLeft={<LucideSearch />}
-              placeholder={SEARCH_MESSAGE_EXAMPLES[0]}
-              disabled={isLoading}
-            />
+          <div className="text-xl font-bold">What are you looking for?</div>
+          <div className="mt-2 flex gap-2 flex-col sm:flex-row">
+            <div className="flex-1">
+              <Input
+                {...form.register("message", {
+                  onChange: () => resetPlaces(),
+                })}
+                iconLeft={<LucideSearch />}
+                placeholder={SEARCH_MESSAGE_EXAMPLES[0]}
+                disabled={isLoading}
+              />
+              {hasSearchError && (
+                <p className="text-red-500 text-xs mt-1.5">
+                  {form.formState.errors.message
+                    ? form.formState.errors.message?.message
+                    : error?.message}
+                </p>
+              )}
+            </div>
             <Button
               type="submit"
               className="w-full sm:w-36"
@@ -80,17 +92,10 @@ export default function Home() {
               {isLoading ? "Searching..." : "Search"}
             </Button>
           </div>
-          {hasSearchError && (
-            <span className="text-red-500 text-sm">
-              {form.formState.errors.message
-                ? form.formState.errors.message?.message
-                : error?.message}
-            </span>
-          )}
         </form>
 
         <div className="my-4">
-          <PlaceList items={foursquarePlaces} />
+          <PlaceList items={places} isLoading={isLoading} />
         </div>
       </div>
     </Container>
