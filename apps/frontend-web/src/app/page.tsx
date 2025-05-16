@@ -1,19 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { Header, Hero, PlaceList } from "../components/common";
-import { Button, Container, EmptyState, Input } from "../components/base";
+import { PhotoProvider, PhotoSlider } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
+import { LucideSearch, LucideSparkles } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { cn } from "../lib/utils";
+
+import { Header, Hero, PlaceList } from "../components/common";
+import { Button, Container, EmptyState, Input } from "../components/base";
 import { FoursquarePlace, ApiError } from "../types";
 import { HttpService } from "../service/http";
 import { setApiErrorToForm } from "../lib/form";
-import { LucideSearch, LucideSparkles } from "lucide-react";
 import NoResults from "../../public/svg/no_results.svg";
-import { PhotoProvider, PhotoSlider } from "react-photo-view";
-import "react-photo-view/dist/react-photo-view.css";
+import { useSearchMessagePlaceholder } from "../hooks";
 
 const formSchema = z.object({
   message: z.string(),
@@ -23,13 +26,9 @@ type FormInput = z.infer<typeof formSchema>;
 
 const http = new HttpService();
 
-// TODO: Cycle through these examples
-const SEARCH_MESSAGE_EXAMPLES = [
-  "I'm craving some good pizza. Can you find a budget-friendly pizza spot in IT Park Cebu that's open right now",
-  "Find me a Tennis court in Cebu City",
-];
-
 export default function Home() {
+  const searchMessage = useSearchMessagePlaceholder();
+
   const [places, setPlaces] = useState<FoursquarePlace[]>();
   const [selectedPhotoPreviewPlace, setSelectedPhotoPreviewPlace] = useState<{
     open: boolean;
@@ -106,9 +105,9 @@ export default function Home() {
                   {...form.register("message", {
                     onChange: () => resetPlaces(),
                   })}
-                  className="h-10"
+                  className={cn("h-10", searchMessage.className)}
                   iconLeft={<LucideSearch />}
-                  placeholder={SEARCH_MESSAGE_EXAMPLES[0]}
+                  placeholder={searchMessage.placeholder}
                   disabled={isLoading}
                 />
                 {hasSearchError && (
