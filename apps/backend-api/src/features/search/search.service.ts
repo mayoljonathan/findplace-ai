@@ -3,8 +3,10 @@ import { CONVERT_MESSAGE_TO_SEARCH_COMMAND_SYSTEM_PROMPT } from '../../services/
 import { OpenAiService } from '../../services/open-ai/open-ai.service';
 import { SearchCommand } from './types';
 import { FoursquareService } from '../../services/foursquare/foursquare.service';
-import { SEARCH_ACTION_TO_FOURSQUARE_CATEGORY_ID } from './constants/search-action';
-import { FoursquarePlace } from '../../services/foursquare/types';
+import {
+  SEARCH_ACTION_TO_FOURSQUARE_CATEGORY_ID,
+  SEARCH_FOURSQUARE_PLACE_FIELDS,
+} from './constants/search';
 
 @Injectable()
 export class SearchService {
@@ -33,25 +35,11 @@ export class SearchService {
     const { action, parameters } = searchCommand;
     const { price, ...restParameters } = parameters;
 
-    const pluckFields: (keyof FoursquarePlace)[] = [
-      'fsq_id',
-      'name',
-      'categories',
-      'location',
-      'photos',
-      'rating',
-      'price',
-      'popularity',
-      'hours',
-      'website',
-      'tel',
-    ];
-
     const { results = [] } = await this.foursquareService.searchPlaces({
       categories: SEARCH_ACTION_TO_FOURSQUARE_CATEGORY_ID[action],
       min_price: price ? parseInt(price) : undefined,
       ...restParameters,
-      fields: pluckFields.join(','),
+      fields: SEARCH_FOURSQUARE_PLACE_FIELDS.join(','),
     });
 
     return results;

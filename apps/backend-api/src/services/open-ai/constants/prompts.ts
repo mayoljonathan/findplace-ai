@@ -1,4 +1,4 @@
-import { SEARCH_ACTIONS } from '../../../features/search/constants/search-action';
+import { SEARCH_ACTIONS } from '../../../features/search/constants/search';
 import {
   restaurantSearchCommandExample,
   searchCommandInterfaceExample,

@@ -1,4 +1,4 @@
-import { SearchAction } from './constants/search-action';
+import { SearchAction } from './constants/search';
 
 export interface SearchCommand {
   action: SearchAction;

@@ -6,7 +6,7 @@ import { SearchCommand } from './types';
 import { CONVERT_MESSAGE_TO_SEARCH_COMMAND_SYSTEM_PROMPT } from '../../services/open-ai/constants/prompts';
 import { FoursquareService } from '../../services/foursquare/foursquare.service';
 import { FoursquarePlacesResponse } from '../../services/foursquare/types';
-import { SEARCH_ACTION_TO_FOURSQUARE_CATEGORY_ID } from './constants/search-action';
+import { SEARCH_ACTION_TO_FOURSQUARE_CATEGORY_ID } from './constants/search';
 
 describe('SearchService', () => {
   let service: SearchService;
