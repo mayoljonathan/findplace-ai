@@ -4,7 +4,7 @@ import { Controller, Get } from '@nestjs/common';
 export class AppController {
   private lastPing: Date;
 
-  @Get()
+  @Get('health')
   check() {
     const lastPing = this.lastPing;
     this.lastPing = new Date();
