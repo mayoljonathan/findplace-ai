@@ -29,6 +29,10 @@ export class OpenAiService {
       ],
     });
 
+    if (!response?.choices?.[0]?.message?.content) {
+      return null;
+    }
+
     return JSON.parse(response.choices[0].message.content) as T;
   }
 }

@@ -117,13 +117,16 @@ export default function Home() {
         }
       />
 
-      <Container className="h-full flex flex-col gap-4">
+      <Container className="h-full flex flex-col">
         <Header />
-        <Hero />
+        <Hero className="mt-4" />
 
         <div className="flex-1">
-          <form onSubmit={form.handleSubmit(handleSubmit)}>
-            <div className="mt-2 flex gap-2 flex-col sm:flex-row">
+          <form
+            className="py-4 sticky top-0 z-50 bg-background flex flex-col gap-4"
+            onSubmit={form.handleSubmit(handleSubmit)}
+          >
+            <div className="flex gap-2 flex-col sm:flex-row">
               <div className="flex-1">
                 <Input
                   {...form.register("message", {
@@ -153,43 +156,41 @@ export default function Home() {
                 {isLoading ? "Searching..." : "Search"}
               </Button>
             </div>
+
+            {(!!places?.length || isLoading) && (
+              <PlaceListToolbar
+                itemCount={places?.length}
+                isLoading={isLoading}
+                onSortByChange={setSortBy}
+                sortBy={sortBy}
+              />
+            )}
           </form>
 
-          {places && (
-            <div className="my-4 flex flex-col gap-4">
-              {(!!places.length || isLoading) && (
-                <PlaceListToolbar
-                  itemCount={places.length}
-                  isLoading={isLoading}
-                  onSortByChange={setSortBy}
-                  sortBy={sortBy}
-                />
-              )}
-
-              {isLoading || places.length ? (
-                <PlaceList
-                  items={sortedPlaces}
-                  isLoading={isLoading}
-                  onThumbnailClick={(item) =>
-                    setSelectedPhotoPreviewPlace({
-                      open: true,
-                      item,
-                    })
-                  }
-                />
-              ) : (
-                <>
-                  {status === "success" && !places.length && (
-                    <EmptyState
-                      image={NoResults}
-                      title="No results found"
-                      description="Please try again with a different search query"
-                    />
-                  )}
-                </>
-              )}
-            </div>
-          )}
+          <div className="mb-4 flex flex-col gap-4">
+            {isLoading || places?.length ? (
+              <PlaceList
+                items={sortedPlaces}
+                isLoading={isLoading}
+                onThumbnailClick={(item) =>
+                  setSelectedPhotoPreviewPlace({
+                    open: true,
+                    item,
+                  })
+                }
+              />
+            ) : (
+              <>
+                {status === "success" && !places?.length && (
+                  <EmptyState
+                    image={NoResults}
+                    title="No results found"
+                    description="Please try again with a different search query"
+                  />
+                )}
+              </>
+            )}
+          </div>
         </div>
       </Container>
     </PhotoProvider>
