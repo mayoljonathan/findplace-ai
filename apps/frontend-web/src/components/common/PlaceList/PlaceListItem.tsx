@@ -45,6 +45,8 @@ export const PlaceListItem: React.FC<PlaceListItemProps> = ({
   const scaledRating =
     rating === undefined ? undefined : rating * RATING_SCALE_FACTOR;
 
+  const hasPhotos = !!item?.photos?.length;
+
   return (
     <div className="flex sm:flex-row flex-col gap-2 sm:gap-3">
       <div className="rounded-md aspect-square min-w-fit h-48 sm:h-32 relative overflow-hidden">
@@ -58,9 +60,9 @@ export const PlaceListItem: React.FC<PlaceListItemProps> = ({
             sizes="300px"
             className={cn("rounded-md object-cover", {
               "cursor-pointer transition-all hover:opacity-75":
-                !!onThumbnailClick,
+                hasPhotos && !!onThumbnailClick,
             })}
-            onClick={() => onThumbnailClick?.(item!)}
+            onClick={() => (hasPhotos ? onThumbnailClick?.(item!) : undefined)}
           />
         )}
         {!isLoading && !hours?.open_now && (
