@@ -1,12 +1,14 @@
 {
-  "name": "restaurant-finder",
-  "version": "0.0.1",
-  "repository": "https://github.com/mayoljonathan/restaurant-finder.git",
+  "name": "findplace.ai",
+  "version": "1",
+  "repository": "https://github.com/mayoljonathan/findplace.ai.git",
   "author": "Jonathan Mayol <mayoljonathan@gmail.com>",
   "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "npx concurrently \"pnpm --filter backend-api dev\" \"pnpm --filter frontend-web dev\"",
+    "build": "npx concurrently \"pnpm --filter backend-api build\" \"pnpm --filter frontend-web build\"",
+    "start": "npx concurrently \"pnpm --filter backend-api start:prod\" \"pnpm --filter frontend-web start\"",
     "test": "npx concurrently \"pnpm --filter backend-api test\""
   }
 }

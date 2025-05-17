@@ -1,7 +1,10 @@
 {
-  "name": "frontend-web",
-  "version": "0.1.0",
+  "name": "findplace-ai-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for FindPlace.ai",
+  "author": "Jonathan Mayol <mayoljonathan@gmail.com>",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
