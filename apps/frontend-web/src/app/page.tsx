@@ -141,7 +141,9 @@ export default function Home() {
                   <p className="text-red-500 text-sm mt-1.5">
                     {form.formState.errors.message
                       ? form.formState.errors.message?.message
-                      : error?.message}
+                      : error?.error === "BadRequestException"
+                      ? error?.message
+                      : "An error has occured. Please try again."}
                   </p>
                 )}
               </div>

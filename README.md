@@ -2,21 +2,28 @@
 
 # FindPlace.ai
 
-A LLM-driven modern web application that helps users discover and find restaurants, gyms, establishments, and places. Built with a monorepo structure using pnpm workspaces, featuring a NestJS as backend and Next.js as frontend.
+A LLM-driven modern web application that helps users discover and find restaurants, gyms, establishments, and places. Built with a monorepo structure using pnpm workspaces, featuring a NestJS as backend with integration to OpenAI and Foursquare, and Next.js as frontend.
 
-<div style="text-align: center">
+## 🎥 Demo
+
+### Check out the live demo of [FindPlace.ai](http://findplace-ai.vercel.app/)
+
+<p align="center" style="text-align: center">
    <img src="https://raw.githubusercontent.com/mayoljonathan/findplace.ai/refs/heads/develop/docs/screenshots/findplace-ai-demo.gif" alt="FindPlace.ai demo">
-</div>
+</p>
 
 ## ✨ Features
 
-- 🤖 AI-Powered Search: Find places using natural language queries
-- 🏪 Place Discovery: Search for restaurants, gyms, and other establishments
-- 🔍 Results Sorting: Sort results by relevance, rating and prices
-- 📱 Responsive Design: Works seamlessly on desktop and mobile devices
-- 🎨 Modern UI: Clean, minimalistic design with smooth loading states
-- 🖼️ Photo Gallery: View high-quality images of the restaurant, and places
-- ⚠️ Error Handling: Comprehensive server-side error handling for frontend error messages
+- 🤖 <b>AI-Powered Search:</b> Find places using natural language queries
+- 🏪 <b>Place Discovery:</b> Search for restaurants, gyms, and other establishments
+- 🔍 <b>Results Sorting:</b> Sort results by relevance, rating and prices
+- 📱 <b>Responsive Design:</b> Works seamlessly on desktop and mobile devices
+- 🎨 <b>Modern UI:</b> Clean, minimalistic design with smooth loading states
+- 🖼️ <b>Photo Gallery:</b> View high-quality images of the restaurant, and places
+- 🔐 <b>Security:</b> Foursquare image domains are strictly configured in Next.js config
+- ⚠️ <b>Error Handling:</b> Comprehensive server-side error handling for frontend error messages
+- 🔒 <b>API Key Integration:</b> Secure API endpoints with simple API key authentication
+- 🔄 <b>API Proxy:</b> API request forwarding to the NestJS backend server
 
 ## 🚀 Tech Stack
 
@@ -118,6 +125,7 @@ findplace.ai/
    # Application
    PORT=4000
    NODE_ENV="production" # "production" or "development"
+   API_KEYS="" # list of allowed api keys separated by comma
 
    # OpenAi
    OPENAI_API_KEY=""
@@ -132,6 +140,7 @@ findplace.ai/
 
    ```bash
    NEXT_PUBLIC_API_URL="http://localhost:4000"
+   NEXT_PUBLIC_API_KEY=""
    ```
 
 4. Start the development servers under root folder:
