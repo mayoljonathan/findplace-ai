@@ -96,21 +96,29 @@ findplace-ai/
 
 2. Install dependencies in root folder:
 
-   via pnpm:
+   If using via pnpm, install both apps dependency under one command:
 
    ```bash
    pnpm install
    ```
 
-   via npm:
+   If using via npm, cd to each of the apps and run `npm install`:
 
    ```bash
+   cd apps/backend-api
+   npm install
+
+   cd apps/frontend-web
    npm install
    ```
 
-   via yarn:
+   If using via yarn, cd to each of the apps and run `yarn install`:
 
    ```bash
+   cd apps/backend-api
+   yarn install
+
+   cd apps/frontend-web
    yarn install
    ```
 
