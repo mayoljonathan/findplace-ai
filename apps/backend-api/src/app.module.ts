@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { SearchModule } from './features/search/search.module';
 import { CatchAllErrorFilter } from './common/filters';
 import { HttpLoggerMiddleware } from './common/middlewares';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { HttpLoggerMiddleware } from './common/middlewares';
     }),
     SearchModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_FILTER,
