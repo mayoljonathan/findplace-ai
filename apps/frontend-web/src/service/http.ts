@@ -1,10 +1,19 @@
 import axios, { Axios, AxiosError, AxiosRequestConfig } from "axios";
 import { ApiError } from "../types";
+import { API_KEY } from "../config/constants";
 
 export class HttpService extends Axios {
   constructor(config?: AxiosRequestConfig) {
-    super(config);
-    const instance = axios.create(config);
+    const resolvedConfig = {
+      ...config,
+      headers: {
+        ...config?.headers,
+        "x-api-key": API_KEY,
+      },
+    };
+
+    super(resolvedConfig);
+    const instance = axios.create(resolvedConfig);
 
     instance.interceptors.response.use(
       (response) => response.data,

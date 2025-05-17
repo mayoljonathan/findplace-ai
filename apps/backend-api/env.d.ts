@@ -2,6 +2,7 @@ interface EnvironmentVariable {
   // Application
   PORT: string;
   NODE_ENV: 'development' | 'production';
+  API_KEYS: string;
 
   // OpenAI
   OPENAI_API_KEY: string;
