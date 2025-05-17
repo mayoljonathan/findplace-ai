@@ -1,6 +1,12 @@
+<img src="https://raw.githubusercontent.com/mayoljonathan/findplace.ai/refs/heads/develop/docs/screenshots/findplace-ai-web.png" title="FindPlace.ai" alt="FindPlace.ai">
+
 # FindPlace.ai
 
 A LLM-driven modern web application that helps users discover and find restaurants, gyms, establishments, and places. Built with a monorepo structure using pnpm workspaces, featuring a NestJS as backend and Next.js as frontend.
+
+<div style="text-align: center">
+   <img src="https://raw.githubusercontent.com/mayoljonathan/findplace.ai/refs/heads/develop/docs/demo/findplace-ai-demo.gif" alt="FindPlace.ai demo">
+</div>
 
 ## ✨ Features
 
@@ -158,9 +164,17 @@ findplace.ai/
 
 The test files are located in each of the controllers and services with a suffix of `spec.ts`
 
+Under your root folder, run the following command:
+
+```bash
+pnpm test
+```
+
+or when using other package managers:
+
 ```bash
 cd apps/backend-api
-pnpm test
+npm test # yarn test or pnpm test
 ```
 
 ## 📦 Building for Production
