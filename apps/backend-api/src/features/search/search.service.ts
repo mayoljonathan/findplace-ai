@@ -7,6 +7,7 @@ import {
   SEARCH_ACTION_TO_FOURSQUARE_CATEGORY_ID,
   SEARCH_FOURSQUARE_PLACE_FIELDS,
 } from './constants/search';
+import { AxiosError } from 'axios';
 
 @Injectable()
 export class SearchService {
@@ -35,12 +36,20 @@ export class SearchService {
     const { action, parameters } = searchCommand;
     const { price, ...restParameters } = parameters;
 
-    const { results = [] } = await this.foursquareService.searchPlaces({
-      categories: SEARCH_ACTION_TO_FOURSQUARE_CATEGORY_ID[action],
-      min_price: price ? parseInt(price) : undefined,
-      ...restParameters,
-      fields: SEARCH_FOURSQUARE_PLACE_FIELDS.join(','),
-    });
+    const { results = [] } = await this.foursquareService
+      .searchPlaces({
+        categories: SEARCH_ACTION_TO_FOURSQUARE_CATEGORY_ID[action],
+        min_price: price ? parseInt(price) : undefined,
+        ...restParameters,
+        fields: SEARCH_FOURSQUARE_PLACE_FIELDS.join(','),
+      })
+      .catch((error: AxiosError) => {
+        // Possibly could not search for the 'near' value
+        if (error.status === 400) {
+          return { results: [] };
+        }
+        throw error;
+      });
 
     return results;
   }
