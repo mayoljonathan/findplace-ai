@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/mayoljonathan/findplace.ai/refs/heads/develop/docs/screenshots/findplace-ai-web.png" title="FindPlace.ai" alt="FindPlace.ai">
+<img src="https://raw.githubusercontent.com/mayoljonathan/findplace-ai/refs/heads/develop/docs/screenshots/findplace-ai-web.png" title="FindPlace.ai" alt="FindPlace.ai">
 
 # FindPlace.ai
 
@@ -9,7 +9,7 @@ A LLM-driven modern web application that helps users discover and find restauran
 ### Check out the live demo of [FindPlace.ai](http://findplace-ai.vercel.app/)
 
 <p align="center" style="text-align: center">
-   <img src="https://raw.githubusercontent.com/mayoljonathan/findplace.ai/refs/heads/develop/docs/screenshots/findplace-ai-demo.gif" alt="FindPlace.ai demo">
+   <img src="https://raw.githubusercontent.com/mayoljonathan/findplace-ai/refs/heads/develop/docs/screenshots/findplace-ai-demo.gif" alt="FindPlace.ai demo">
 </p>
 
 ## ✨ Features
@@ -53,7 +53,7 @@ A LLM-driven modern web application that helps users discover and find restauran
 ## 🏗️ Project Structure
 
 ```
-findplace.ai/
+findplace-ai/
 ├── apps/
 │   ├── backend-api/     # NestJS backend application
 │   │   ├── src/
@@ -90,7 +90,7 @@ findplace.ai/
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/mayoljonathan/findplace.ai.git
+   git clone https://github.com/mayoljonathan/findplace-ai.git
    cd findplace-ai
    ```
 
