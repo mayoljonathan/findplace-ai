@@ -4,9 +4,13 @@
 
 A LLM-driven modern web application that helps users discover and find restaurants, gyms, establishments, and places. Built with a monorepo structure using pnpm workspaces, featuring a NestJS as backend and Next.js as frontend.
 
-<div style="text-align: center">
+## 🎥 Demo
+
+### Check out the live demo of [FindPlace.ai](http://findplace-ai.vercel.app/)
+
+<p align="center" style="text-align: center">
    <img src="https://raw.githubusercontent.com/mayoljonathan/findplace.ai/refs/heads/develop/docs/screenshots/findplace-ai-demo.gif" alt="FindPlace.ai demo">
-</div>
+</p>
 
 ## ✨ Features
 
