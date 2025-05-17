@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cn(`antialiased h-max min-h-svh`, funnelSans.className)}
+        className={cn(`h-max min-h-svh`, funnelSans.className)}
         suppressHydrationWarning
       >
         <AppProvider>{children}</AppProvider>

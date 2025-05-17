@@ -14,7 +14,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   return (
     <div
       className={cn(
-        "w-full flex items-center min-h-9",
+        "w-full flex items-center h-10",
         "shadow-xs transition-[color,box-shadow]",
         "border border-input rounded-md relative focus-within:border-ring focus-within:ring-ring/50 focus-within:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40"
       )}
@@ -25,7 +25,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
       <input
         data-slot="input"
         className={cn(
-          "h-full -my-0.25 text-base file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 flex w-full min-w-0 bg-transparent px-3 py-1 file:inline-flex file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 outline-none",
+          "!h-full mr-1 text-base file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 flex w-full min-w-0 bg-transparent pl-3 pr-1.5 py-1 file:inline-flex file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 outline-none",
           className
         )}
         {...restProps}
