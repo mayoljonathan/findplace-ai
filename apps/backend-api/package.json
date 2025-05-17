@@ -1,5 +1,5 @@
 {
-  "name": "findplace-ai-backend",
+  "name": "backend-api",
   "version": "1.0.0",
   "description": "Backend API for FindPlace.ai",
   "author": "Jonathan Mayol <mayoljonathan@gmail.com>",
