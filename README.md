@@ -2,7 +2,7 @@
 
 # FindPlace.ai
 
-A LLM-driven modern web application that helps users discover and find restaurants, gyms, establishments, and places. Built with a monorepo structure using pnpm workspaces, featuring a NestJS as backend and Next.js as frontend.
+A LLM-driven modern web application that helps users discover and find restaurants, gyms, establishments, and places. Built with a monorepo structure using pnpm workspaces, featuring a NestJS as backend with integration to OpenAI and Foursquare, and Next.js as frontend.
 
 ## 🎥 Demo
 
